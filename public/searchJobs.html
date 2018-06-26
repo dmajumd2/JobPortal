@@ -1,0 +1,82 @@
+<h1>Welcome to Search Jobs</h1>
+
+<form>
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label for="validationServer01">Search By Title</label>
+            <input type="text" class="form-control" name="searchTitle" ng-model="searchform.searchTitle" id="validationServer01" placeholder="Search By Title">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="validationServer02">Search By Keywords</label>
+            <input type="text" class="form-control" name="searchKeyword" ng-model="searchform.searchKeyword" id="validationServer02" placeholder="Search By Keywords">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label for="validationServerUsername">Search By Location</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="searchLocation" ng-model="searchform.searchLocation" id="validationServerUsername" placeholder="Search By Location" aria-describedby="inputGroupPrepend3">
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" ng-click="search(searchform)" type="submit">Search</button>
+        <button class='btn btn-danger' ng-click="reset(searchform)" type="submit">Reset</button>
+    </form>
+    <div style="float: right;">
+        <button class="btn btn-info" ng-click="sjobs()" type="submit">Saved Jobs</button>
+        <button class='btn btn-info' ng-click="ajobs()" type="submit">Applied Jobs</button>
+    </div>
+    <div> 
+      <table class="table table-dark">
+        <tr>
+          <th>Job Title</th>
+          <th>Job Description</th>
+          <th>Job Location</th>
+        </tr>
+        <tr ng-repeat="x in searchdata">
+          <td>{{ x.jobtitle }}</td><br>
+          <td>{{ x.jobDescription }}</td><br>
+          <td>{{ x.location }}</td><br>
+          <td>
+            <button type="button" ng-click="savedJobs($index)" class="btn btn-info btn-lg">
+              <span class="glyphicon glyphicon-star"></span>Save Job
+            </button>
+          </td>
+          <td>
+              <button type="button"  ng-click="appliedJobs($index)" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-star"></span>Apply
+              </button>
+            </td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+        <table class="table table-dark">
+          <thead><h1>Saved Jobs</h1></thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Job Description</th>
+                <th>Job Location</th>
+            </tr>
+            <tr ng-repeat="y in savedJobData">
+                <td>{{ y.jobtitle }}</td><br>
+                <td>{{ y.jobDescription }}</td><br>
+                <td>{{ y.location }}</td><br>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <table class="table table-dark">
+          <thead><h1>Applied Jobs</h1></thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Job Description</th>
+                <th>Job Location</th>
+            </tr>
+            <tr ng-repeat="z in appliedJobData">
+                <td>{{ z.jobtitle }}</td><br>
+                <td>{{ z.jobDescription }}</td><br>
+                <td>{{ z.location }}</td><br>
+            </tr>
+        </table>
+    </div>
