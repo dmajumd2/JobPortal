@@ -139,6 +139,8 @@ app.controller('homeCtrl', function($scope, $location, $cookieStore){
 
     $scope.logout = function(){
         $location.path('/login');
+        $cookieStore.remove("userObj");
+        $cookieStore.remove('category');
     }
 });
 
@@ -149,12 +151,17 @@ app.controller("postJobCtrl", function($scope, $location, $http){
         $http.post('http://localhost:3000/postjobs', $scope.postform).then(function(resp){
             console.log(resp);
         });
+        alert("Job posted successfully");
 
     };
 
     $scope.reset = function(postform){
         $scope.postform = null;
     };
+
+    $scope.GoBack = function(){
+        $location.path('/login');
+    }
 
 });
 
@@ -169,13 +176,14 @@ app.controller('initialCtrl', function($scope, $location){
 /////////////////////////REGISTRATION CONTROLLER////////////////////////////////
 app.controller('registrationCtrl', function($scope, $location, $http, $cookieStore){
     $scope.register = function(regform){
-        console.log(regform);
+        //console.log(regform);
         $cookieStore.put('category', regform.selectCategory);
         //console.log(MyService.savedJobsArray);
         $http.post('http://localhost:3000/register', $scope.regform).then(function(resp){
             localStorage.ruser = JSON.stringify(resp.data);
             $location.path('/login');   
-    });   
+         });  
+         alert("Registered successfully"); 
     }
 
     $scope.category = ["Company", "Job Seeker"];
@@ -187,6 +195,11 @@ app.controller('searchJobCtrl',function($scope, $location, $http, MyService, $co
     // $scope.reset = function(searchform){
     //     $scope.searchform = null;
     // }
+
+    $scope.GoBack = function(){
+        $location.path('/home');
+    }
+
 
     $scope.reset = function(searchform) {
         $scope.searchform = null;
@@ -222,7 +235,7 @@ app.controller('searchJobCtrl',function($scope, $location, $http, MyService, $co
         }
         $http.post('http://localhost:3000/savedjobs', obj).then(function(resp){
                 //console.log(resp.data);
-                $scope.savedJobData = resp.data;
+                //$scope.savedJobData = resp.data;
                 console.log($scope.savedJobData);
         });        
     }
